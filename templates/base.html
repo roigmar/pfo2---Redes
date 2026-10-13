@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#F3E0D3">
+    <title>{% block titulo %}Organiza tu día{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <header class="encabezado">
+        <a class="marca" href="{{ url_for('inicio') }}" aria-label="Ir al inicio">
+            <span class="marca-nombre">Organiza </span><span class="marca-digital">tu día.</span>
+        </a>
+        <span class="avatar avatar-rosa" aria-hidden="true">MR</span>
+    </header>
+    <main>{% block contenido %}{% endblock %}</main>
+    <footer class="pie">
+        <p>PFO2 · Programación sobre redes</p>
+        <div class="alumna" aria-label="Alumna: Marcela Roig">
+            <a href="https://dragonfly.com.ar" target="_blank" rel="noopener noreferrer">
+                Marcela Roig
+            </a>
+            <span class="alumna-curso">Com E 2026</span>
+        </div>
+    </footer>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

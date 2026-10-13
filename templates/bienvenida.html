@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block titulo %}hola, {{ usuario }}{% endblock %}
+{% block contenido %}
+<section class="hero">
+    <p class="etiqueta">tu panel de tareas</p>
+    <h1>hola, {{ usuario }}</h1>
+    <p class="subtitulo">Un pequeño paso hoy puede hacer más liviano todo tu día.</p>
+    <div class="lista-tareas">
+        {% if tareas %}
+            {% for tarea in tareas %}
+            <article class="tarjeta tarea {{ 'tarea-completada' if tarea['completada'] else '' }}">
+                <span class="check" aria-hidden="true">{{ "✓" if tarea["completada"] else "○" }}</span>
+                <div>
+                    <h2>{{ tarea["titulo"] }}</h2>
+                    <p>{{ tarea["descripcion"] }}</p>
+                </div>
+            </article>
+            {% endfor %}
+        {% else %}
+            <div class="tarjeta tarea-vacia">
+                <span class="check">✓</span>
+                <div><h2>todo listo para empezar</h2><p>Tus tareas aparecerán en este espacio.</p></div>
+            </div>
+        {% endif %}
+    </div>
+    <button class="boton-secundario" id="cerrar-sesion">Cerrar sesión</button>
+    <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+</section>
+{% endblock %}
+{% block scripts %}<script>
+document.querySelector("#cerrar-sesion").addEventListener("click", async () => {
+    const respuesta = await fetch("/logout", {method: "POST"});
+    if (respuesta.ok) window.location.href = "/login";
+    else document.querySelector("#mensaje").textContent = "No se pudo cerrar la sesión.";
+});
+</script>{% endblock %}

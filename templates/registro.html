@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block titulo %}registro{% endblock %}
+{% block contenido %}
+<section class="tarjeta formulario">
+    <div class="insignia">✦</div>
+    <p class="etiqueta">tu paz mental</p>
+    <h1>creá tu cuenta</h1>
+    <p class="descripcion">Registrate para organizar tus tareas en un solo lugar.</p>
+    <form id="formulario-registro">
+        <label for="usuario">Usuario</label>
+        <input id="usuario" name="usuario" autocomplete="username" required>
+        <label for="contraseña">Contraseña</label>
+        <input id="contraseña" name="contraseña" type="password" autocomplete="new-password" required>
+        <button type="submit">Registrarme</button>
+        <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+    </form>
+    <p class="enlace">¿Ya tenés cuenta? <a href="{{ url_for('pagina_login') }}">Iniciá sesión</a></p>
+</section>
+{% endblock %}
+{% block scripts %}<script>
+const formulario = document.querySelector("#formulario-registro");
+formulario.addEventListener("submit", async (evento) => {
+    evento.preventDefault();
+    const mensaje = document.querySelector("#mensaje");
+    const datos = Object.fromEntries(new FormData(formulario));
+    try {
+        const respuesta = await fetch("/registro", {
+            method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(datos)
+        });
+        const resultado = await respuesta.json();
+        mensaje.textContent = resultado.mensaje;
+        mensaje.className = `mensaje ${respuesta.ok ? "exito" : "error"}`;
+        if (respuesta.ok) formulario.reset();
+    } catch (error) {
+        mensaje.textContent = "No se pudo conectar con el servidor.";
+        mensaje.className = "mensaje error";
+    }
+});
+</script>{% endblock %}

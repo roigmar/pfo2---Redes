@@ -1,0 +1,39 @@
+# Entornos virtuales
+.venv/
+venv/
+env/
+ENV/
+
+# Cachés y archivos generados por Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Base de datos local y archivos SQLite auxiliares
+database.db
+database.db-*
+*.sqlite
+*.sqlite3
+
+# Variables de entorno y configuración local
+.env
+.env.*
+!.env.example
+
+# Archivos temporales del sistema operativo y editores
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+*.log
+.vscode/
+.idea/
+
+# Archivos temporales del cliente y pruebas manuales
+cookies.txt
